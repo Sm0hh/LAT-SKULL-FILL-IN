@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Skull FIB</title>
+<style>
+body{font-family:Arial,sans-serif;margin:0;padding:20px;text-align:center;background:#fff;color:#111}h1{margin:0 0 12px}.instructions{margin-bottom:20px}.quiz-image{width:min(1000px,95vw);height:auto;display:block;margin:0 auto 25px}.answers{width:min(850px,95vw);margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:8px 70px;text-align:left}.answer-row{display:flex;align-items:center;gap:10px}.letter{width:28px;font-weight:bold;font-size:18px}input{flex:1;padding:9px 10px;font-size:16px;border:2px solid #ccc;border-radius:6px;outline:none}input.correct{color:green;border-color:green;background:#f2fff2;font-weight:bold}input.incorrect{color:red;border-color:red;background:#fff2f2}#score{margin:28px 0 10px;font-size:20px;font-weight:bold}button{padding:9px 18px;font-size:15px;cursor:pointer}@media(max-width:700px){.answers{grid-template-columns:1fr}}
+</style></head><body>
+<h1>Skull FIB</h1><div class="instructions">Type the correct anatomical term for each letter. Correct answers turn <b style="color:green">green</b>; incorrect answers turn <b style="color:red">red</b>.</div>
+<img class="quiz-image" src="lateral-skull.png" alt="Lateral skull anatomy diagram">
+<div class="answers" id="answers"></div><div id="score">Score: 0 / 16</div><button onclick="resetQuiz()">Reset Quiz</button>
+<script>
+const key={A:"EAM",B:"Mastoid portion of temporal bone",C:"Occipital bone",D:"Lambdoidal suture",E:"Clivus",F:"Dorsum sellae",G:"Posterior clinoid processes",H:"Anterior clinoid processes",I:"Vertex of cranium",J:"Coronal suture",K:"Frontal bone",L:"Orbital plates",M:"Cribriform plate",N:"Sella turcica",O:"Body of sphenoid (sphenoid sinus)",P:"Petrous portion of temporal bone"};
+const box=document.getElementById('answers');Object.entries(key).forEach(([l,a])=>{let r=document.createElement('div');r.className='answer-row';let s=document.createElement('span');s.className='letter';s.textContent=l+'.';let i=document.createElement('input');i.placeholder='Type answer...';i.autocomplete='off';i.addEventListener('input',()=>{i.classList.remove('correct','incorrect');if(i.value.trim()){i.classList.add(norm(i.value)===norm(a)?'correct':'incorrect')}score()});r.append(s,i);box.append(r)});
+function norm(x){return x.toLowerCase().replace(/\s+/g,' ').trim()}function score(){let n=[...document.querySelectorAll('input')].filter(i=>i.classList.contains('correct')).length;document.getElementById('score').textContent=`Score: ${n} / 16`}function resetQuiz(){document.querySelectorAll('input').forEach(i=>{i.value='';i.classList.remove('correct','incorrect')});score()}
+</script></body></html>
